@@ -1,0 +1,148 @@
+<script>
+    const Factions=["Cats","Birds","Woodland Ally","Vagabond","Corvid","Dutchy"]
+    const ReachPerFac={
+        "Cats":10,
+        "Birds":9,
+        "Woodland Ally":6,
+        "Vagabond":5,
+        "Corvid":7,
+        "Dutchy":8
+    }
+    const RecReach=[0,22,17,16,12]
+    function shuffleList(saidList){
+        for (let i=saidList.length-1;i>0;i--){
+            const j=Math.floor(Math.random()*(i+1));
+            [saidList[i],saidList[j]]=[saidList[j],saidList[i]]
+        }
+        //console.log(saidList)
+        //console.log(Factions)
+    }
+    let players=3
+    function getFactions(){
+        shuffleList(Factions)
+        let facSet=Factions.slice(-players)
+        console.log(facSet)
+        const FacRow=document.getElementById("factions")
+        while (FacRow.firstChild){
+            FacRow.removeChild(FacRow.firstChild)
+        }
+        let reach=0
+        for (i of facSet){
+            reach+=ReachPerFac[i]
+            const faction=document.createElement("span")
+            faction.textContent=i+", "
+            document.getElementById("factions").appendChild(faction)
+        }
+        console.log(reach)
+        document.getElementById("GivenReach").innerHTML=reach
+        document.getElementById("RecReach").innerHTML=RecReach[players]
+    }
+</script>
+<body>
+    <div id="ReturnRandoms">
+        <div id="reach">Recomend Reach:
+            <label id="RecReach">Rec</label>
+        </div>
+        <div>Given Reach:
+            <label id="GivenReach">Have</label>
+        </div>
+        <div id="factions"></div>
+    </div>
+    <button onclick="getFactions()">Shuffle Factions</button>
+</body>
+<head>
+    <title>Card Game Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #1f1f1f;
+            color: #f0f0f0;
+        }
+
+        #coiny {
+            font-size: 30px;
+        }
+
+        /*label {
+            display: inline-block;
+            width: 150px;
+            text-align: left;
+            color: #f0f0f0;
+        }*/
+
+        #output {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        /* Dark theme specific styles */
+        input[type="checkbox"] {
+            filter: invert(1);
+        }
+
+        button {
+            background-color: #282c34;
+            color: #f0f0f0;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3a3f4b;
+        }
+        .cardDisp {
+            display: flex; /* Make .cardDisp flex container */
+            justify-content: center; /* Center .CostRow horizontally */
+            align-items: center; /* Center .CostRow vertically */
+            margin-top: 30px;
+        }
+
+        .CostRow {
+            display: flex; /* Make .CostRow flex container */
+            flex-direction: column; /* Arrange child elements vertically */
+            align-items: center; /* Center child elements horizontally */
+            width: 140px; /* Set a fixed width to .CostRow divs */
+            padding: 10px;
+            background-color: #3a3f4b;
+            border-radius: 5px;
+            margin: 5px; /* Add margin to create spacing between .CostRow divs */
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            margin-top: 10px;
+        }
+
+        label {
+            width: auto;
+            color: #f0f0f0;
+        }
+
+        .input {
+            background-color: #333;
+            color: #f0f0f0;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            width: 300px;
+            margin-left: 10px;
+        }
+
+        #randomIncludeNumber {
+            background-color: #333;
+            color: #f0f0f0;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
